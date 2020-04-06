@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Lotto Calculator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- css style -->
+        <link rel="stylesheet" type="text/css" href="./css/main.css">
+        
+        
+    </head>
+    <body>
+        
+        <!-- Wraps the whole content in a dynamically scaling wrapper -->
+        <div class="flex-wrapper">
+            <div>
+                <div class="content">
+                    <div class="head">
+                         <img src="./assets/logo2.jpg" width="250">
+                       
+                    </div>
+                   
+                    <div>
+                       <h2 class="description"> 
+                        A little web application that implements
+                        the Testat 2 tasks with html, css and JavaScript. <br />
+                        When <span>pressing generate</span> numbers, 6 random numbers are calculated
+                        and then shown on screen. <br />
+                        </h2>  
+                    </div>    
+                </div>
+                <div class="lotto">
+                    
+                    <div class="boxholder">
+                        <div class="boxes">
+                            <div id="0" class="box"></div>
+                            <div id="1" class="box"></div>
+                            <div id="2" class="box"></div>
+                            <div id="3" class="box"></div>
+                            <div id="4" class="box"></div>
+                            <div id="5" class="box"></div>
+                        </div> 
+                    </div>
+                    <div class="button-holder">
+                        <button id="generate"><h2>Generate</h2></button>
+                    </div>
+                </div>
+                
+                   
+            </div>
+        </div>
+        <script src="./js/main.js"></script>
+    </body>
+</html>
