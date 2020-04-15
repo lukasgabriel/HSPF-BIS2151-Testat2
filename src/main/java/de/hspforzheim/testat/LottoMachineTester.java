@@ -16,7 +16,7 @@ public class LottoMachineTester {
         // Instantiate LottoMachine
         LottoMachine myLotto = new LottoMachine();
 
-        // Optional: Change the parameters
+        // Optional: Change the parameters - see README.md for info
         myLotto.setParameters(6, 1, 49, true);
 
         // Call makeNewNumbers the first time...
