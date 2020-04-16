@@ -18,7 +18,10 @@ public class LottoMachineTester {
         System.out.println("Actual Lotto numbers are: " + myLotto);
         myLotto.resetNumbers();
         
-        makePrintReset(myLotto);
+        
+        
+        for( int i = 0; i < 20; i++)
+            makePrintReset(myLotto);
     }
     
     

@@ -54,11 +54,13 @@ class LottoMachine {
 
 
 const myLotto = new LottoMachine();
-var button = document.getElementById("generate");
-
+const button = document.getElementById("generate");
 // Add an event listener to the button to recognize clicks and link a listener
 // function to that call.
 button.addEventListener("click", generate);
+
+
+
 
 
 function generate() {
@@ -68,13 +70,38 @@ function generate() {
 }
 
 
-function displayNumbers()
-{
-    for( var i = 0; i < myLotto.lottoNumbers.length; i++) {
-        try{
+function displayNumbers() {
+    var array = removeAnimationNumbers();
+    var rand = (Math.random() * 20) + 20;
+    console.log(array);
+    for( let i = 0; i < myLotto.lottoNumbers.length; i++) {
+            for( let j = 0; j < rand; j++) {
+                   setTimeout(function() {
+                       var doc = document.getElementById(i);
+                       doc.innerHTML = array[Math.floor(Math.random() * 42)]; 
+                   }, 100 * j);
+            }
             document.getElementById(i).innerHTML = myLotto.lottoNumbers[i];
-        } catch(e) {
-            
+    }
+}
+
+
+
+function removeAnimationNumbers() {
+    var lottoArray = myLotto.lottoNumbers;
+    var animationNumbers = [...Array(50).keys()]
+    animationNumbers.splice(0,1);
+    for(var i = 0; i < lottoArray.length; i++) {
+        for(var j = 0; j < animationNumbers.length; j++) {
+         if( animationNumbers[j] === lottoArray[i]){
+             animationNumbers.splice(j, 1);
+         }
         }
     }
+    
+    return animationNumbers;
+}
+
+async function sleep(msec) {
+    return new Promise(resolve => setTimeout(resolve, msec));
 }
