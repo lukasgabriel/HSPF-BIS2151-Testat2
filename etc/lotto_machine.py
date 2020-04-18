@@ -5,6 +5,10 @@ from random import randint
 
 class LottoMachine:
     LOTTO_BALLS = 6
+    LOTTO_LOWER_BOUND = 1
+    LOTTO_UPPER_BOUND = 49
+    LOTTO_SORTING = True
+
 
     def __init__(self, lotto_numbers: list = []):
         self.lotto_numbers = lotto_numbers
@@ -20,6 +24,8 @@ class LottoMachine:
 
     def num_string(self):
         actual_nums = [num for num in self.l_n if num != 0]
+        if self.LOTTO_SORTING:
+            actual_nums.sort()
         num_string = str(actual_nums).strip('[]').replace(',', '')
         return num_string
 
@@ -27,7 +33,7 @@ class LottoMachine:
         self.l_n = [0 for _ in range(self.LOTTO_BALLS)]
 
     def make_one_number(self):
-        num = randint(1, 49)
+        num = randint(self.LOTTO_LOWER_BOUND, self.LOTTO_UPPER_BOUND)
         for i, j in enumerate(self.l_n):
             if j == 0:
                 if num in self.l_n:

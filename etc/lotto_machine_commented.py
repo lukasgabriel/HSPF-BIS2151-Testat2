@@ -5,7 +5,12 @@ from random import randint
 
 class LottoMachine:
     # class var LOTTO_BALLS states the number of balls drawn (typically 6 out of 49)
+    # class vars LOTTO_LOWER_BOUND & LOTTO_UPPER_BOUND define range of possible ball rolls
+    # class var LOTTO_SORTING states if output should be sorted
     LOTTO_BALLS = 6
+    LOTTO_LOWER_BOUND = 1
+    LOTTO_UPPER_BOUND = 100
+    LOTTO_SORTING = True
 
     # initialise the class and type-hint lotto_numbers as list; fill l_n with zeroes as default
     def __init__(self, lotto_numbers: list = []):
@@ -22,9 +27,12 @@ class LottoMachine:
         string = f"Actual Lotto numbers are: {self.num_string()}"
         return string
 
-    # create a string representation of the current lotto_numbers; sorting would also be possible
+    # create a string representation of the current lotto_numbers
     def num_string(self):
         actual_nums = [num for num in self.l_n if num != 0]
+        # if sorting is enabled, sort actual_nums in-place
+        if self.LOTTO_SORTING:
+            actual_nums.sort()
         num_string = str(actual_nums).strip('[]').replace(',', '')
         return num_string
 
@@ -41,7 +49,7 @@ class LottoMachine:
 
     def make_one_number(self):
         # generate random integer between 1..49 using random.randint()
-        num = randint(1, 49)
+        num = randint(self.LOTTO_LOWER_BOUND, self.LOTTO_UPPER_BOUND)
         # enumerate l_n and loop through
         for i, j in enumerate(self.l_n):
             # look for first zero
