@@ -19,7 +19,7 @@ public class LottoMachine {
     private int lottoBalls = 6;
     private int lottoLowerBound = 1;
     private int lottoUpperBound = 49;
-    private boolean sortLotto = false;
+    private boolean sortLotto = true;
 
     // Declare the empty lottoNumbers array by calling resetNumbers()
     private Integer[] lottoNumbers = resetNumbers();
@@ -81,10 +81,8 @@ public class LottoMachine {
         final ArrayList<Integer> actualNums = new ArrayList<>();
 
         // Adds all filled values to actualNums
-        for (int i = 0; i < lottoNumbers.length; i++) {
-            if (lottoNumbers[i] != 0) {
-                actualNums.add(lottoNumbers[i]);
-            }
+        for (int i = 0; i < lottoNumbers.length; i++) {   
+               actualNums.add(lottoNumbers[i]);    
         }
 
         // If sortLotto parameter is true, sort the actualNums (like in the real world)
@@ -95,9 +93,13 @@ public class LottoMachine {
         // Build string of actualNums contents and return
         final StringBuilder sb = new StringBuilder();
 
-        for (final int num : actualNums) {
-            sb.append(num);
-            sb.append(" ");
+        for ( int num : actualNums) {
+            sb.append(num);  
+            if(num == 0) {
+                sb.append("(not set)  ");
+            } else {
+                sb.append(" ");
+            }
         }
 
         final String numString = sb.toString();
@@ -107,13 +109,13 @@ public class LottoMachine {
 
     // Used to change class parameters like the number of ball rolls, upper and
     // lower bound of possible values and changes if output is sorted
-    public void setParameters(final int newLottoBalls, final int newLowerBound, final int newUpperBound, final boolean newSortLotto) {
+    public void setParameters( int newLottoBalls,  int newLowerBound,  int newUpperBound,  boolean newSortLotto) {
         this.lottoBalls = newLottoBalls;
         this.lottoLowerBound = newLowerBound;
         this.lottoUpperBound = newUpperBound;
         this.sortLotto = newSortLotto;
         // Calculate range of possible values as difference between bounds
-        final int valueRange = lottoUpperBound - lottoLowerBound + 1;
+        int valueRange = lottoUpperBound - lottoLowerBound + 1;
         if (lottoBalls > valueRange) {
             // As any value of lottoBalls greater than valueRange will create an infinite
             // loop due to the uniqueness condition of the values, change lottoBalls to

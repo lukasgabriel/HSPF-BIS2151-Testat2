@@ -34,12 +34,12 @@ public class LottoMachineTester {
 
     private static void testAgain(LottoMachine lottoMachine) {
         // Make new numbers once more and reset them again
-
+        
         lottoMachine.makeNewNumbers();
-
+        
         System.out.println("Actual Lotto numbers are: " + lottoMachine);
-
+        
         lottoMachine.resetNumbers();
-
+        
     }
 }
