@@ -5,21 +5,21 @@
  */
 package de.hspforzheim.testat;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 /**
  *
- * @author Lukas Gabriel
+ * @author Lukas Gabriel, Cedric Jansen
  */
 public class LottoMachine {
     // Declare variables with default values
-    private static int lottoBalls = 6;
-    private static int lottoLowerBound = 1;
-    private static int lottoUpperBound = 49;
-    private static boolean sortLotto = false;
+    private int lottoBalls = 6;
+    private int lottoLowerBound = 1;
+    private int lottoUpperBound = 49;
+    private boolean sortLotto = false;
 
     // Declare the empty lottoNumbers array by calling resetNumbers()
     private Integer[] lottoNumbers = resetNumbers();
@@ -28,7 +28,7 @@ public class LottoMachine {
     public Integer[] resetNumbers() {
         // Use ArrayList because it is mutable and we want to be able to change the
         // lottoNumbers length
-        ArrayList<Integer> lottoNumberList = new ArrayList<Integer>();
+        final ArrayList<Integer> lottoNumberList = new ArrayList<Integer>();
         // Fill with as many zeroes as specified in lottoBalls
         for (int i = 0; i < lottoBalls; i++) {
             lottoNumberList.add(0);
@@ -41,25 +41,25 @@ public class LottoMachine {
 
     }
 
-    // Looks for one empty (filled with zero) spot in lottoNums and fills it with
-    // random integer
+    // Creates one random number between 1...49 and puts it into the lottoNumbers
+    // array. It searches for the next free place and saves the new number there
+    // if the number is not already existing in one of the other 5 places.
     public void makeOneNumber() {
-        // Generate random integer in range between specified lower and upper bound
-        int randNum = ThreadLocalRandom.current().nextInt(lottoLowerBound, lottoUpperBound + 1);
+        boolean isPresent = false;
+        final int newNumber = ThreadLocalRandom.current().nextInt(lottoLowerBound, lottoUpperBound + 1);
 
-        // Loop through lottoNumbers array
         for (int i = 0; i < lottoNumbers.length; i++) {
+            if (newNumber == lottoNumbers[i]) {
+                isPresent = true;
+            }
+        }
 
-            // Look for first zero
-            if (lottoNumbers[i] == 0) {
-
-                // Check if number is already present in array
-                if (Arrays.asList(lottoNumbers).contains(randNum)) {
-                    // If yes, call method again
-                    makeOneNumber();
-                } else {
-                    // If unique, fill spot of zero with randNum and return
-                    lottoNumbers[i] = randNum;
+        if (isPresent) {
+            makeOneNumber();
+        } else {
+            for (int i = 0; i < lottoNumbers.length; i++) {
+                if (lottoNumbers[i] == 0) {
+                    lottoNumbers[i] = newNumber;
                     return;
                 }
             }
@@ -68,7 +68,7 @@ public class LottoMachine {
 
     // Call makeOneNumber on every spot in lottoNumbers array
     public void makeNewNumbers() {
-        for (int counter : lottoNumbers) {
+        for (final int counter : lottoNumbers) {
             makeOneNumber();
         }
     }
@@ -78,7 +78,7 @@ public class LottoMachine {
     public String numString() {
 
         // Creat mutable ArrayList actualNums to track filled values in lottoNumbers
-        ArrayList<Integer> actualNums = new ArrayList<>();
+        final ArrayList<Integer> actualNums = new ArrayList<>();
 
         // Adds all filled values to actualNums
         for (int i = 0; i < lottoNumbers.length; i++) {
@@ -93,33 +93,34 @@ public class LottoMachine {
         }
 
         // Build string of actualNums contents and return
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
-        for (int num : actualNums) {
+        for (final int num : actualNums) {
             sb.append(num);
             sb.append(" ");
         }
 
-        String numString = sb.toString();
+        final String numString = sb.toString();
         return numString;
 
     }
 
     // Used to change class parameters like the number of ball rolls, upper and
     // lower bound of possible values and changes if output is sorted
-    public void setParameters(int newLottoBalls, int newLowerBound, int newUpperBound, boolean newSortLotto) {
-        lottoBalls = newLottoBalls;
-        lottoLowerBound = newLowerBound;
-        lottoUpperBound = newUpperBound;
-        sortLotto = newSortLotto;
+    public void setParameters(final int newLottoBalls, final int newLowerBound, final int newUpperBound, final boolean newSortLotto) {
+        this.lottoBalls = newLottoBalls;
+        this.lottoLowerBound = newLowerBound;
+        this.lottoUpperBound = newUpperBound;
+        this.sortLotto = newSortLotto;
         // Calculate range of possible values as difference between bounds
-        int valueRange = lottoUpperBound - lottoLowerBound + 1;
+        final int valueRange = lottoUpperBound - lottoLowerBound + 1;
         if (lottoBalls > valueRange) {
             // As any value of lottoBalls greater than valueRange will create an infinite
-            // loop due to the uniqueness condition of the values, throw an
-            // IllegalArgumentEception if such a combination of parameters were to be
-            // specified
-            throw new IllegalArgumentException("Range of possible values cannot be lower than amount of ball rolls.");
+            // loop due to the uniqueness condition of the values, change lottoBalls to
+            // at least as high as lottoUpperBound
+            System.out.println("Range of possible values cannot be lower than amount of ball rolls. Setting appropriate values...");
+            this.lottoBalls = lottoUpperBound;
+            
         }
         // Call resetNumbers() once more to accomodate change of lottoNumbers array
         // length after class instantiation
