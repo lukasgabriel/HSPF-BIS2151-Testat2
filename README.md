@@ -21,7 +21,7 @@ We implemented both methods in Java (*src\main\java\de\hspforzheim\testat\LottoM
 
 Additionally, we developed a simple web application that implements the Testat 2 tasks with HTML, CSS and JavaScript and designed a simple graphical user interface:
 
-[Web GUI]: https://github.com/lukasgabriel/HSPF-BIS2151-Testat2/blob/master/etc/screenshot.png?raw=true "LottoMachine in the browser!"
+<img align="center" width="600" height="262" src="https://github.com/lukasgabriel/HSPF-BIS2151-Testat2/blob/master/etc/screenshot.png?raw=true" alt="LottoMachine in the browser!"> 
 
 This version is accessible via *html\index.html*.
 
