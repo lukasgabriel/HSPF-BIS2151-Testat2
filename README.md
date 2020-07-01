@@ -23,6 +23,7 @@ Additionally, we developed a simple web application that implements the Testat 2
 
 <img align="center" width="600" height="262" src="https://github.com/lukasgabriel/HSPF-BIS2151-Testat2/blob/master/etc/screenshot.png?raw=true" alt="LottoMachine in the browser!"> 
 
+**<a href="https://htmlpreview.github.io/?https://github.com/lukasgabriel/HSPF-BIS2151-Testat2/blob/master/html/index.html">Try it out here!</a>**
 This version is accessible via *html\index.html*.
 
 Our submission was graded with 5.75 out of 6 possible points.
